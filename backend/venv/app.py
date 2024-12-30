@@ -1,9 +1,9 @@
 import psycopg2
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-
+from flask_cors import CORS # Indica que tiene permitido ingresar solamente la API indicada
 app = Flask(__name__)
 CORS(app, origins = "http://localhost:5173")
+
 # Esta función se encarga de establecer y devolver una conexión a la base de datos
 # Se establecen los parámetros de la función [psycopg2.connect()], aquí es donde se CREA la conexión a la base de datos con la librería, los parámetros son necesarios para que la librería sepa dónde está la base de datos
 # [host: localhost] -> Indica que la base de datos está en tu máquina local
@@ -27,6 +27,8 @@ def index():
 # conn.close() -> Se cierra la conexión a la base de datos
 # return "Conexión a la base de datos establecida correctamente" -> Se devuelve un mensaje de éxito
 # except Exception as e: -> Se maneja cualquier error que pueda ocurrir al intentar establecer la conexión a la base de datos
+
+# Health check de bd
 @app.route('/test_db')
 def test_db():
     try:
@@ -151,6 +153,7 @@ def update_expense(id):
         (description, amount, date, id)
     )
 
+    # VERIFICAR EL GETBY ID
     if cursor.rowcount == 0:
         conn.rollback()
         cursor.close()
@@ -213,6 +216,7 @@ def get_expense(id):
     conn.close()
     return {'expense':expense_data}, 200
 
+# MIDDLEWARE
 # Manejo de errores
 # Se ejecutan automáticamente cuando ocurre un error 404, 400 o 500. Son generales y globales, independeintes a los manejos de errores que se hayan hecho en las funciones de la aplicación (endpoints)
 @app.errorhandler(404)
