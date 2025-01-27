@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/styles.css';
 
-const Dashboard = ({ expenses, onDeleteExpense, onUpdateExpense }) => {
+const Dashboard = ({ expenses, onDeleteExpense, onUpdateExpense }) => { {/* Se reciben las props expenses, onDeleteExpense y onUpdateExpense */}
     const [editingId, setEditingId] = useState(null);
     const [editedExpense, setEditedExpense] = useState(null);
 

@@ -8,12 +8,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = () => {
+  {/* useState es un hook que permite modificar una variable dentro del DOM */}
   const [expenses, setExpenses] = useState([]);
   const [editingExpenseId, setEditingExpense] = useState(null);
 
   const fetchExpenses = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:5000/expenses');
+      console.log("Datos recibidos del backend:", response);
       setExpenses(response.data);
     }
     catch (error) {
@@ -44,6 +46,9 @@ const App = () => {
     setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
   };
 
+  {/* async hace que la función sea asíncrona, lo que significa que se ejecutará en segundo plano y no bloqueará la ejecución del resto del código */}
+  {/* por ejemplo: si se está esperando una respuesta del servidor, el resto del código puede seguir ejecutándose mientras se espera la respuesta */}
+  {/* await es una palabra clave que se usa para esperar a que una promesa se resuelva, en este caso, se está esperando a que la petición a la API se complete */}
   const handleDeleteExpense = async (id) => {
     if (window.confirm("¿Eliminar gasto?")) {
       try {

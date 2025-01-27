@@ -7,7 +7,7 @@ import App from './TempApp.jsx';
 
 // [ReactDOM.createRoot] es el método de React 18+ para iniciar una aplicación, crea la 'raíz' que controla el árbol de componentes de la aplicación
 // [document.getElementById('root')] busca en el DOM un elemento con el id 'root', este elemento es el contenedor principal donde React insertará toda la aplicación
-// [.render] toma el componente <App /> y lo renderiza en el contenedor HTML (<div id="root"></div>)
+// [.render] toma el componente <App /> y lo renderiza en el contenedor HTML dentro del (<div id="root"></div>)
 ReactDOM.createRoot(document.getElementById('root')).render(
     // [<React.StrictMode>] es una herramienta para detectar problemas en el código, ayuda a identificar prácticas no recomendadas o errores
     <React.StrictMode>
