@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import '../styles/styles.css';
+
 
 const AddExpense = ({ onAddExpense }) => {
     const [description, setDescription] = useState("");
@@ -30,9 +32,9 @@ const AddExpense = ({ onAddExpense }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="container mt-4" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: '0px' }}>
-            <div className="form-group" style={{ marginRight: '10px' }}>
-                <label htmlFor="description" style={{ marginRight: '10px' }}>Descripción:</label>
+        <form onSubmit={handleSubmit} className="container mt-4">
+            <div className="form-group">
+                <label htmlFor="description">Descripción:</label>
                 <input
                     type="text"
                     id="description"
@@ -41,8 +43,8 @@ const AddExpense = ({ onAddExpense }) => {
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
-            <div className="form-group" style={{ marginRight: '10px' }}>
-                <label htmlFor="amount" style={{ marginRight: '10px' }}>Monto:</label>
+            <div className="form-group">
+                <label htmlFor="amount" >Monto:</label>
                 <input
                     type="number"
                     id="amount"
@@ -51,8 +53,8 @@ const AddExpense = ({ onAddExpense }) => {
                     onChange={(e) => setAmount(e.target.value)}
                 />
             </div>
-            <div className="form-group" style={{ marginRight: '10px' }}>
-                <label htmlFor="date" style={{ marginRight: '10px' }}>Fecha:</label>
+            <div className="form-group">
+                <label htmlFor="date">Fecha:</label>
                 <input
                     type="date"
                     id="date"

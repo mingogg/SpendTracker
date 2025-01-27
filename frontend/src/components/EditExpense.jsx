@@ -1,25 +1,52 @@
 import React, { useState } from 'react';
+import Dashboard from './Dashboard';
+import EditExpense from './EditExpense';
 
-const EditExpense = ({ expense, onUpdateExpense, onCancel }) => {
-    const [description, setDescription] = useState(expense.description);
-    const [amount, setAmount] = useState(expense.amount);
-    const [date, setDate] = useState(new Date(expense.date).toISOString().split('T')[0]);
+const ExpenseTracker = () => {
+    const [expenses, setExpenses] = useState([
+        { id: 1, description: 'Cena', amount: 50, date: '2025-01-01' },
+        { id: 2, description: 'Gasolina', amount: 30, date: '2025-01-15' },
+    ]);
+    const [editingExpense, setEditingExpense] = useState(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onUpdateExpense({ ...expense, description, amount, date });
+    const handleDeleteExpense = (id) => {
+        setExpenses((prev) => prev.filter((expense) => expense.id !== id));
+    };
+
+    const handleEditExpense = (expense) => {
+        setEditingExpense(expense);
+    };
+
+    const handleUpdateExpense = (updatedExpense) => {
+        setExpenses((prev) =>
+            prev.map((expense) =>
+                expense.id === updatedExpense.id ? updatedExpense : expense
+            )
+        );
+        setEditingExpense(null); // Salir del modo edición
+    };
+
+    const handleCancelEdit = () => {
+        setEditingExpense(null);
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-            <h3>Editar Gasto</h3>
-            <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descripción" required />
-            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Monto" required />
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-            <button type="submit">Guardar</button>
-            <button type='button' onClick={onCancel}>Cancelar</button>
-        </form>
+        <div>
+            {editingExpense ? (
+                <EditExpense
+                    expense={editingExpense}
+                    onUpdateExpense={handleUpdateExpense}
+                    onCancel={handleCancelEdit}
+                />
+            ) : (
+                <Dashboard
+                    expenses={expenses}
+                    onDeleteExpense={handleDeleteExpense}
+                    onEditExpense={handleEditExpense}
+                />
+            )}
+        </div>
     );
 };
 
-export default EditExpense;
+export default ExpenseTracker;
